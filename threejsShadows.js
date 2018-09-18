@@ -11,9 +11,19 @@ monster = null,
 group = null,
 orbitControls = null;
 
+var duration = 10, // sec
+crateAnimator = null,
+waveAnimator = null,
+lightAnimator = null,
+waterAnimator = null,
+animateCrate = true,
+animateWaves = true,
+animateLight = true,
+animateWater = true,
+loopAnimation = false;
+
 var objLoader = null, jsonLoader = null;
 
-var duration = 20000; // ms
 var currentTime = Date.now();
 
 function loadJson()
@@ -70,8 +80,8 @@ function run() {
         // Render the scene
         renderer.render( scene, camera );
 
-        // Spin the cube for next frame
-        animate();
+        // Update the animations
+        KF.update();
 
         // Update the camera controller
         orbitControls.update();
@@ -171,4 +181,48 @@ function createScene(canvas) {
 
     // Now add the group to our scene
     scene.add( root );
+}
+
+
+function playAnimations()
+{
+    // position animation
+    monster.position.set(0, 0, 0);
+    monster.rotation.set(0, 0, 0);
+
+    crateAnimator = new KF.KeyFrameAnimator;
+    crateAnimator.init({
+        interps:
+            [
+                {
+                    keys:[0, .2, .25, .375, .5, .9, 1],
+                    values:[
+                            { x : 0, y:0, z: 0 },
+                            { x : .5, y:0, z: .5 },
+                            { x : 0, y:0, z: 0 },
+                            { x : .5, y:-.25, z: .5 },
+                            { x : 0, y:0, z: 0 },
+                            { x : .5, y:-.25, z: .5 },
+                            { x : 0, y:0, z: 0 },
+                            ],
+                    target:monster.position
+                },
+                {
+                    keys:[0, .25, .5, .75, 1],
+                    values:[
+                            { x : 0, z : 0 },
+                            { x : Math.PI / 12, z : Math.PI / 12 },
+                            { x : 0, z : Math.PI / 12 },
+                            { x : -Math.PI / 12, z : -Math.PI / 12 },
+                            { x : 0, z : 0 },
+                            ],
+                    target:monster.rotation
+                },
+            ],
+        loop: true,
+        duration:duration * 1000,
+        easing:TWEEN.Easing.Bounce.InOut,
+    });
+    crateAnimator.start();
+
 }
