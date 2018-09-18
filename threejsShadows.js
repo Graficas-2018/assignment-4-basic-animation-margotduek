@@ -192,29 +192,23 @@ function playAnimations()
 
     crateAnimator = new KF.KeyFrameAnimator;
     crateAnimator.init({
-        interps:
+       interps:
             [
                 {
-                    keys:[0, .2, .25, .375, .5, .9, 1],
+                    keys:[0,  1],
                     values:[
+                            { x : 10, y:0, z: 0 },
                             { x : 0, y:0, z: 0 },
-                            { x : .5, y:0, z: .5 },
-                            { x : 0, y:0, z: 0 },
-                            { x : .5, y:-.25, z: .5 },
-                            { x : 0, y:0, z: 0 },
-                            { x : .5, y:-.25, z: .5 },
-                            { x : 0, y:0, z: 0 },
+                            { x : 0, y:10, z: 0 },
                             ],
                     target:monster.position
                 },
                 {
-                    keys:[0, .25, .5, .75, 1],
+                    keys:[0, 1],
                     values:[
-                            { x : 0, z : 0 },
-                            { x : Math.PI / 12, z : Math.PI / 12 },
-                            { x : 0, z : Math.PI / 12 },
-                            { x : -Math.PI / 12, z : -Math.PI / 12 },
-                            { x : 0, z : 0 },
+                            { x : 0, y : 180,  z : 0 },
+                            { x : 0, y : 180,  z :0 },
+                            { x : 0, y : 90,  z :0 },
                             ],
                     target:monster.rotation
                 },
